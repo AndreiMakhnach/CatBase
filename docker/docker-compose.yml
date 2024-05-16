@@ -1,0 +1,24 @@
+version: '3.1'
+
+services:
+  app:
+    image: 'ee7319afcf147c7ead2e738f12caf480029764280ed9941d3c00ef96a2fff280'
+    container_name: app
+    expose:
+      - '8080'
+    ports:
+      - '8080:8080'
+    environment:
+      - DB_USER=dron
+      - DB_PASSWORD=password
+      - DB_URL= jdbc:postgresql://db:5432/
+    depends_on:
+      - db
+  db:
+    image: 'postgres'
+    container_name: db
+    expose:
+      - '5432'
+    environment:
+      - POSTGRES_USER=dron
+      - POSTGRES_PASSWORD=password
