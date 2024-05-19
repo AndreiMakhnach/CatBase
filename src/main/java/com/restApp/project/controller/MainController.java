@@ -23,15 +23,14 @@ public class MainController {
             description = "Получает DTO кота и через билдер собирает и записывает сущность в бд"
     )
     @PostMapping("/api/add")
-    public void addCat(@RequestBody CatDTO catDTO) {
-        System.out.println(
-                "New row: " + catRepo.save(
+    public Cat addCat(@RequestBody CatDTO catDTO) {
+       return catRepo.save(
                         Cat.builder()
                             .age(catDTO.getAge())
                             .name(catDTO.getName())
                             .weight(catDTO.getWeight())
-                            .build())
-        );
+                            .build()
+       );
     }
 
     @Operation(
@@ -62,6 +61,10 @@ public class MainController {
         catRepo.deleteById(id);
     }
 
+    @Operation(
+            summary = "Добавляет котейку",
+            description = "Добавляет информацию по котейке"
+    )
     @PutMapping("/api/add")
     public String changeCat(@RequestBody Cat cat) {
         if (!catRepo.existsById(cat.getId())) {
